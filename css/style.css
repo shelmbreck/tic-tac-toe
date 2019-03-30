@@ -1,6 +1,6 @@
 h1 {
   color: white;
-  text-shadow: 1px 1px 2px #0ff, 0 0 25px #f0f, 0 0 5px #fff;
+  text-shadow: 1px 1px 2px rgb(0, 0, 255), 0 0 25px rgb(255, 0, 183), 0 0 5px #fff;
   font-size: 80px;
   text-align: center;
 }
@@ -31,8 +31,22 @@ div {
         inset -20px 0 80px #000,  /* inner right cyan short */
         inset 20px 0 400px #000,  /* inner left magenta broad */
         inset -20px 0 400px #000, /* inner right cyan broad */
-        0 0 50px #fff,            /* outer white */
-        -10px 0 80px #f0f,        /* outer left magenta */
-        10px 0 80px #0ff; 
+        -10px 0 80px rgb(255, 0, 183),        /* outer left magenta */
+        10px 0 80px rgb(0, 0, 255); 
+
+}
+
+#start-btn {
+  color: rgb(255, 0, 183);
+  height: 20px;
+  width: 200px;
+  box-shadow:
+  inset 0 0 50px #000,      /* inner white */
+  inset 20px 0 80px #000,   /* inner left magenta short */
+  inset -20px 0 80px #000,  /* inner right cyan short */
+  inset 20px 0 400px #000,  /* inner left magenta broad */
+  inset -20px 0 400px #000, /* inner right cyan broad */ 
+  -10px 0 80px rgb(255, 0, 183),        /* outer left magenta */
+  10px 0 80px rgb(0, 0, 255); 
 
 }
