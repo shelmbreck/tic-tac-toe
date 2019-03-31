@@ -8,23 +8,26 @@
 </head>
 <body>
   <h1>Tic-Tac-Toe</h1>
-  <div class= "game-board">
-    <div class="box" id="one"></div>
-    <div class="box" id="two"></div>
-    <div class="box" id="three"></div>
-    <div class="box" id="four"></div>
-    <div class="box" id="five"></div>
-    <div class="box" id="six"></div>
-    <div class="box" id="seven"></div>
-    <div class="box" id="eight"></div>
-    <div class="box" id="nine"></div>
-  </div>
-  <br>
-  <button id="start-btn">Let's play again!</button> 
-  <!-- <div>
-    <table></table>
-  </div> -->
-  <!-- <div class="endgame"></div> -->
+  <main class="flex-container">
+      <div class = "game-board">
+          <div class ="box" id ="zero"></div>      
+          <div class ="box" id ="one"></div>
+          <div class ="box" id ="two"></div>
+          <div class ="box" id ="three"></div>
+          <div class ="box" id ="four"></div>
+          <div class ="box" id ="five"></div>
+          <div class ="box" id ="six"></div>
+          <div class ="box" id ="seven"></div>
+          <div class ="box" id ="eight"></div>
+        </div>
+        <div id="score-board">
+          <div id="player-1">😍</div>
+          <div id="player-2">🤪</div>
+        </div>
+        <button id ="start-game-btn">Let's play again!</button> 
+        <div id="message"></div>
+        <div id="end-game"></div>
+  </main>
   <script type="text/javascript" src="js/app.js"></script>
 </body>
 </html>

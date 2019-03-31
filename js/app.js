@@ -7,35 +7,111 @@
 // Display a message to indicate which turn is about to be played.
 // Detect draw conditions (ties/cat's game)
 // Detect winner: Stop game and declare the winner if one player ends up getting three in a row.
+// Hint: Determine a set of winning combinations. Check those combinations on the board contents after every move.
+// Have Fun - The best way to learn is by playing with code. Let creativity guide you and try some experiments with JS and CSS and see what you can do.
 
-
-// declare variables
+// State Variables
 var playerOne = "😍"
 var playerTwo = "🤪"
 var firstMove
 var gameBoard
-var checkWin 
+var checkWin
 var gameWon
 var startGame
 var declareWinner
-var turnCount 
+var turnCount = 1;
 var winCombos = [
-    ['one', 'two', 'three'],
-    ['four', 'five', 'six'],
-    ['seven', 'eight', 'nine'],
-    ['one','four','seven'],
+    ['zero', 'one', 'two',],    
+    ['three', 'four', 'five'],
+    ['six', 'five', 'six'],
+    ['zero', 'three', 'six'],
+    ['one', 'four', 'seven'],
     ['two', 'five', 'eight'],
-    ['one','five', 'nine' ],
+    ['zero', 'four', 'eight'],
     ['six', 'four', 'two']
 ]
+var box = document.querySelectorAll('.box');
 
-//start the game
+// start game
 function startGame() {
-    document.querySelector("endgame").style.visibility = "hidden";
+    document.querySelector("#end-game").style.visibility = "hidden";
 gameBoard = Array.from(Array(9).keys());
 for (var i = 0; i < box.length; i++) {
     box[i].innerText = '';
-    box[i].style.removeProperty('background-color');
     box[i].addEventListener('click', turnClick, false);
+}
+}
+
+// Switch Players
+function turnClick(square) {
+    var player; 
+    if (turnCount % 2 === 1) {
+        player = playerOne //odd
+    } else {
+        player = playerTwo //even
+    }        
+    turnCount++
+    turn(square.target.id, player) 
+}
+
+function turn(squareId, player) {
+    gameBoard[squareId] = player;
+    document.getElementById(squareId).innerText = player;
+	let gameWon = checkWin(gameBoard, player)
+    if (gameWon) {
+        gameOver(gameWon)
     }
 }
+
+function checkWin(board, player) {
+	let plays = board.reduce((a, e, i) => // a is the accumulator, e is the element, i is the index
+		(e === player) && a.concat(i) || a, []); // if the elemnt equals the player, add accumulator to the index array
+    let gameWon = null;
+	for (let [index, win] of winCombos.entries()) {
+		if (win.every(elem => plays.indexOf(elem) > -1)) { //go through every element in the win
+			gameWon = {index: index, player: player};
+			break;
+		}
+    }  
+    return (gameWon);
+}
+
+function gameOver (gameWon) {
+    for( let index of winCombos[gameWon.index]) {
+    for (var i = 0; i < box.length; i++ ) {
+        box[i].removeEventListener('click', turnClick, false)
+    } 
+declareWinner(gameWon.player == playerOne && " 😍 wins!" || "🤪 wins!");
+}
+}
+
+function declareWinner(who) {
+	document.querySelector("#end-game").style.visibility = "visible";
+    document.querySelector("#end-game").textContent = who;
+    document.querySelector("#message").textContent = who;
+}
+
+function emptySquares() {
+	return gameBoard.filter(s => typeof s == 'number');
+}
+
+function bestSpot() {
+	return emptySquares()[0];
+}
+
+function checkTie() {
+	if (emptySquares().length == 0) {
+		for (var i = 0; i < box.length; i++) {
+			box[i].removeEventListener('click', turnClick, false);
+		}
+		declareWinner("Tie Game!")
+		return true;
+	}
+    return false
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("start-game-btn").addEventListener("click", function(e) {
+        preventDefault(e)
+})
+})
