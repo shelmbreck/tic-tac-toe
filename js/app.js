@@ -37,13 +37,13 @@ function startGame() {
     document.querySelector("#end-game").style.visibility = "hidden";
 gameBoard = Array.from(Array(9).keys());
 for (var i = 0; i < box.length; i++) {
-    box[i].innerText = '';
+    box[i].textContent = '';
     box[i].addEventListener('click', turnClick, false);
 }
 }
 
 // Switch Players
-function turnClick(square) {
+function turnClick(box) {
     var player; 
     if (turnCount % 2 === 1) {
         player = playerOne //odd
@@ -51,12 +51,12 @@ function turnClick(square) {
         player = playerTwo //even
     }        
     turnCount++
-    turn(square.target.id, player) 
+    turn(box.target.id, player) 
 }
 
-function turn(squareId, player) {
-    gameBoard[squareId] = player;
-    document.getElementById(squareId).innerText = player;
+function turn(boxId, player) {
+    gameBoard[boxId] = player;
+    document.getElementById(boxId).textContent = player;
 	let gameWon = checkWin(gameBoard, player)
     if (gameWon) {
         gameOver(gameWon)
@@ -106,12 +106,14 @@ function checkTie() {
 		}
 		declareWinner("Tie Game!")
 		return true;
-	}
-    return false
+	} else {
+        return false
+    }
 }
 
 document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("start-game-btn").addEventListener("click", function(e) {
         preventDefault(e)
-})
+    })
+    startGame()
 })
